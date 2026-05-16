@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Historial | Atelier Finance</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="stylesheet" href="css/styles.css">
+
+</head>
+
+<body class="p-4 md:p-8">
+
+  <div class="max-w-7xl mx-auto fade-up">
+
+    <!-- HEADER -->
+
+    <div class="glass rounded-3xl p-6 mb-6">
+
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+
+        <div>
+
+          <h1 class="text-3xl md:text-4xl font-bold gold">
+            Historial Completo
+          </h1>
+
+          <p class="text-gray-300 mt-1">
+            Todos los registros almacenados localmente
+          </p>
+
+        </div>
+
+        <a
+          href="index.html"
+          class="gold-bg text-black px-5 py-3 rounded-xl font-semibold"
+        >
+          Inicio
+        </a>
+
+      </div>
+
+    </div>
+
+    <!-- FILTROS -->
+
+    <div class="glass rounded-3xl p-6 mb-6">
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+        <div>
+
+          <label class="block mb-2 text-sm text-gray-300">
+            Buscar Cliente
+          </label>
+
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Ej: Daniel"
+            class="w-full p-4 rounded-xl input-dark"
+          />
+
+        </div>
+
+        <div>
+
+          <label class="block mb-2 text-sm text-gray-300">
+            Filtrar por Fecha
+          </label>
+
+          <input
+            type="date"
+            id="filterDate"
+            class="w-full p-4 rounded-xl input-dark"
+          />
+
+        </div>
+
+        <div class="flex items-end">
+
+          <button
+            id="clearFilters"
+            class="w-full py-4 rounded-xl bg-red-500/20 border border-red-500/20 text-red-300 font-semibold"
+          >
+            Limpiar Filtros
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- TABLA -->
+
+    <div class="glass rounded-3xl p-6">
+
+      <div class="flex items-center justify-between mb-6">
+
+        <h2 class="text-2xl font-semibold">
+          Registros
+        </h2>
+
+        <span
+          id="recordsCount"
+          class="bg-yellow-500/20 text-yellow-300 px-4 py-2 rounded-full text-sm"
+        >
+          0 registros
+        </span>
+
+      </div>
+
+      <div class="overflow-x-auto">
+
+        <table class="w-full">
+
+          <thead>
+
+            <tr class="border-b border-white/10 text-gray-400 text-sm">
+
+              <th class="text-left py-4">Cliente</th>
+              <th class="text-left py-4">Prendas</th>
+              <th class="text-left py-4">Tipo</th>
+              <th class="text-left py-4">Total</th>
+              <th class="text-left py-4">Anticipo</th>
+              <th class="text-left py-4">Estado</th>
+              <th class="text-left py-4">Fecha</th>
+              <th class="text-left py-4">Acciones</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="historyTableBody">
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+
+    const STORAGE_KEY =
+    "atelier_finance_records";
+
+    const historyTableBody =
+    document.getElementById("historyTableBody");
+
+    const searchInput =
+    document.getElementById("searchInput");
+
+    const filterDate =
+    document.getElementById("filterDate");
+
+    const recordsCount =
+    document.getElementById("recordsCount");
+
+    const clearFilters =
+    document.getElementById("clearFilters");
+
+    // =====================================
+    // OBTENER REGISTROS
+    // =====================================
+
+    function getRecords() {
+
+      return JSON.parse(
+        localStorage.getItem(STORAGE_KEY)
+      ) || [];
+
+    }
+
+    // =====================================
+    // GUARDAR
+    // =====================================
+
+    function saveRecords(records) {
+
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(records)
+      );
+
+    }
+
+    // =====================================
+    // RENDER
+    // =====================================
+
+    function renderHistory() {
+
+      let records =
+      getRecords();
+
+      const search =
+      searchInput.value.toLowerCase();
+
+      const selectedDate =
+      filterDate.value;
+
+      // BUSQUEDA
+
+      if(search){
+
+        records =
+        records.filter(record =>
+
+          record.clientName
+          .toLowerCase()
+          .includes(search)
+
+        );
+
+      }
+
+      // FECHA
+
+      if(selectedDate){
+
+        records =
+        records.filter(record =>
+
+          record.date === selectedDate
+
+        );
+
+      }
+
+      // ORDEN
+
+      records.sort((a,b) => {
+
+        return new Date(b.createdAt)
+        - new Date(a.createdAt);
+
+      });
+
+      // CONTADOR
+
+      recordsCount.textContent =
+      `${records.length} registros`;
+
+      // LIMPIAR
+
+      historyTableBody.innerHTML = "";
+
+      // VACIO
+
+      if(records.length === 0){
+
+        historyTableBody.innerHTML = `
+
+          <tr>
+
+            <td
+              colspan="8"
+              class="py-10 text-center text-gray-400"
+            >
+
+              No hay registros.
+
+            </td>
+
+          </tr>
+
+        `;
+
+        return;
+
+      }
+
+      // FILAS
+
+      records.forEach(record => {
+
+        const row =
+        document.createElement("tr");
+
+        row.className =
+        "border-b border-white/5";
+
+        const isPending =
+        record.pending > 0;
+
+        row.innerHTML = `
+
+          <td class="py-5">
+            ${record.clientName}
+          </td>
+
+          <td>
+            ${record.garments}
+          </td>
+
+          <td>
+            ${record.garmentType}
+          </td>
+
+          <td class="text-green-400">
+            $${record.totalPrice.toFixed(2)}
+          </td>
+
+          <td class="text-blue-400">
+            $${record.advance.toFixed(2)}
+          </td>
+
+          <td>
+
+            ${
+              isPending
+
+              ?
+
+              `<span class="text-red-400 font-medium">
+                Pendiente:
+                $${record.pending.toFixed(2)}
+              </span>`
+
+              :
+
+              `<span class="text-green-400 font-medium">
+                COMPLETO
+              </span>`
+            }
+
+          </td>
+
+          <td>
+            ${record.date}
+          </td>
+
+          <td class="flex gap-2 py-3 flex-wrap">
+
+            ${
+              isPending
+
+              ?
+
+              `
+              <button
+                onclick="markAsPaid(${record.id})"
+                class="bg-green-500/20 border border-green-500/20 text-green-300 px-4 py-2 rounded-xl text-sm"
+              >
+                Pagado
+              </button>
+              `
+
+              :
+
+              ""
+            }
+
+            <button
+              onclick="deleteRecord(${record.id})"
+              class="bg-red-500/20 border border-red-500/20 text-red-300 px-4 py-2 rounded-xl text-sm"
+            >
+              Eliminar
+            </button>
+
+          </td>
+
+        `;
+
+        historyTableBody.appendChild(row);
+
+      });
+
+    }
+
+    // =====================================
+    // MARCAR PAGADO
+    // =====================================
+
+    function markAsPaid(id) {
+
+      let records =
+      getRecords();
+
+      records =
+      records.map(record => {
+
+        if(record.id === id){
+
+          record.pending = 0;
+
+          record.advance =
+          record.totalPrice;
+
+        }
+
+        return record;
+
+      });
+
+      saveRecords(records);
+
+      renderHistory();
+
+    }
+
+    // =====================================
+    // ELIMINAR
+    // =====================================
+
+    function deleteRecord(id) {
+
+      const confirmDelete =
+      confirm(
+        "¿Eliminar este registro?"
+      );
+
+      if(!confirmDelete) return;
+
+      let records =
+      getRecords();
+
+      records =
+      records.filter(record =>
+
+        record.id !== id
+
+      );
+
+      saveRecords(records);
+
+      renderHistory();
+
+    }
+
+    // =====================================
+    // FILTROS
+    // =====================================
+
+    searchInput.addEventListener(
+      "input",
+      renderHistory
+    );
+
+    filterDate.addEventListener(
+      "input",
+      renderHistory
+    );
+
+    clearFilters.addEventListener(
+      "click",
+      () => {
+
+        searchInput.value = "";
+
+        filterDate.value = "";
+
+        renderHistory();
+
+      }
+    );
+
+    // =====================================
+    // INICIAR
+    // =====================================
+
+    renderHistory();
+
+  </script>
+
+</body>
+</html>
+```

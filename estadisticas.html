@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Estadísticas | Atelier Finance</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+
+    *{
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body{
+      background:
+      linear-gradient(
+        rgba(0,0,0,.88),
+        rgba(0,0,0,.92)
+      ),
+      url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=1600&auto=format&fit=crop');
+
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+
+      min-height: 100vh;
+
+      color: white;
+    }
+
+    .glass{
+      background: rgba(255,255,255,0.06);
+
+      backdrop-filter: blur(10px);
+
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .gold{
+      color: #d4af37;
+    }
+
+  </style>
+
+</head>
+
+<body class="p-4 md:p-8">
+
+  <div class="max-w-7xl mx-auto">
+
+    <!-- HEADER -->
+
+    <div class="glass rounded-3xl p-5 mb-6">
+
+  <div class="flex flex-wrap gap-3 items-center justify-between">
+
+    <div class="flex gap-3 flex-wrap">
+
+      <button
+        onclick="setMode('week')"
+        class="bg-yellow-500 text-black px-5 py-2 rounded-xl font-semibold"
+      >
+        Semana
+      </button>
+
+      <button
+        onclick="setMode('month')"
+        class="glass px-5 py-2 rounded-xl"
+      >
+        Mes
+      </button>
+
+      <button
+        onclick="setMode('year')"
+        class="glass px-5 py-2 rounded-xl"
+      >
+        Año
+      </button>
+
+    </div>
+
+    <div class="flex items-center gap-3">
+
+      <button
+        onclick="changePeriod(-1)"
+        class="glass px-4 py-2 rounded-xl"
+      >
+        ←
+      </button>
+
+      <span
+        id="currentRange"
+        class="text-yellow-300 font-medium"
+      >
+      </span>
+
+      <button
+        onclick="changePeriod(1)"
+        class="glass px-4 py-2 rounded-xl"
+      >
+        →
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+    <div class="glass rounded-3xl p-6 mb-6">
+
+      <div class="flex flex-wrap items-center justify-between gap-4">
+
+        <div>
+
+          <h1 class="text-4xl font-bold gold">
+            Estadísticas
+          </h1>
+
+          <p class="text-gray-300 mt-1">
+            Resumen general del negocio
+          </p>
+
+        </div>
+
+        <a
+          href="index.html"
+          class="bg-yellow-500 text-black px-6 py-3 rounded-2xl font-semibold"
+        >
+          Volver
+        </a>
+
+      </div>
+
+    </div>
+
+    <!-- CARDS -->
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+
+      <div class="glass rounded-2xl p-5">
+
+        <p class="text-gray-400 text-sm">
+          Ingresos Totales
+        </p>
+
+        <h2
+          id="totalIncome"
+          class="text-3xl font-bold gold mt-2"
+        >
+          $0
+        </h2>
+
+      </div>
+
+      <div class="glass rounded-2xl p-5">
+
+        <p class="text-gray-400 text-sm">
+          Clientes Únicos
+        </p>
+
+        <h2
+          id="totalClients"
+          class="text-3xl font-bold gold mt-2"
+        >
+          0
+        </h2>
+
+      </div>
+
+      <div class="glass rounded-2xl p-5">
+
+        <p class="text-gray-400 text-sm">
+          Prendas Totales
+        </p>
+
+        <h2
+          id="totalGarments"
+          class="text-3xl font-bold gold mt-2"
+        >
+          0
+        </h2>
+
+      </div>
+
+      <div class="glass rounded-2xl p-5">
+
+        <p class="text-gray-400 text-sm">
+          Pendientes
+        </p>
+
+        <h2
+          id="totalPending"
+          class="text-3xl font-bold gold mt-2"
+        >
+          $0
+        </h2>
+
+      </div>
+
+    </div>
+
+    <!-- EXTRA -->
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+
+      <div class="glass rounded-3xl p-6">
+
+        <h2 class="text-2xl font-semibold mb-4">
+          Información General
+        </h2>
+
+        <div class="space-y-4 text-lg">
+
+          <div class="flex justify-between">
+
+            <span class="text-gray-400">
+              Mejor Cliente
+            </span>
+
+            <span id="bestClient">
+              -
+            </span>
+
+          </div>
+
+          <div class="flex justify-between">
+
+            <span class="text-gray-400">
+              Día con más ingresos
+            </span>
+
+            <span id="bestDay">
+              -
+            </span>
+
+          </div>
+
+          <div class="flex justify-between">
+
+            <span class="text-gray-400">
+              Promedio por Pedido
+            </span>
+
+            <span id="averageOrder">
+              $0
+            </span>
+
+          </div>
+
+          <div class="flex justify-between">
+
+            <span class="text-gray-400">
+              Total de Pedidos
+            </span>
+
+            <span id="totalOrders">
+              0
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- GRAFICO -->
+
+      <div class="glass rounded-3xl p-6">
+
+        <h2 class="text-2xl font-semibold mb-6">
+          Ingresos por Día
+        </h2>
+
+        <canvas id="incomeChart"></canvas>
+
+      </div>
+
+    </div>
+
+  </div>
+
+<script>
+
+const STORAGE_KEY =
+"atelier_finance_records";
+
+const records =
+JSON.parse(
+  localStorage.getItem(STORAGE_KEY)
+) || [];
+
+// =========================================
+// ESTADO
+// =========================================
+
+let currentMode = "week";
+
+let currentDate = new Date();
+
+// =========================================
+// UTILIDADES
+// =========================================
+
+function formatMoney(value){
+
+  return `$${value.toFixed(2)}`;
+
+}
+
+function getStartOfWeek(date){
+
+  const d = new Date(date);
+
+  const day = d.getDay();
+
+  d.setDate(
+    d.getDate() - day
+  );
+
+  d.setHours(0,0,0,0);
+
+  return d;
+
+}
+
+function getEndOfWeek(date){
+
+  const start =
+  getStartOfWeek(date);
+
+  const end =
+  new Date(start);
+
+  end.setDate(
+    start.getDate() + 6
+  );
+
+  end.setHours(23,59,59,999);
+
+  return end;
+
+}
+
+function getStartOfMonth(date){
+
+  return new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    1
+  );
+
+}
+
+function getEndOfMonth(date){
+
+  return new Date(
+    date.getFullYear(),
+    date.getMonth() + 1,
+    0,
+    23,
+    59,
+    59
+  );
+
+}
+
+function getStartOfYear(date){
+
+  return new Date(
+    date.getFullYear(),
+    0,
+    1
+  );
+
+}
+
+function getEndOfYear(date){
+
+  return new Date(
+    date.getFullYear(),
+    11,
+    31,
+    23,
+    59,
+    59
+  );
+
+}
+
+// =========================================
+// RANGO ACTUAL
+// =========================================
+
+function getCurrentRange(){
+
+  if(currentMode === "week"){
+
+    return {
+
+      start:
+      getStartOfWeek(currentDate),
+
+      end:
+      getEndOfWeek(currentDate)
+
+    };
+
+  }
+
+  if(currentMode === "month"){
+
+    return {
+
+      start:
+      getStartOfMonth(currentDate),
+
+      end:
+      getEndOfMonth(currentDate)
+
+    };
+
+  }
+
+  return {
+
+    start:
+    getStartOfYear(currentDate),
+
+    end:
+    getEndOfYear(currentDate)
+
+  };
+
+}
+
+// =========================================
+// FILTRAR
+// =========================================
+
+function getFilteredRecords(){
+
+  const range =
+  getCurrentRange();
+
+  return records.filter(record => {
+
+    const date =
+    new Date(record.date);
+
+    return (
+      date >= range.start &&
+      date <= range.end
+    );
+
+  });
+
+}
+
+// =========================================
+// CAMBIAR PERIODO
+// =========================================
+
+function changePeriod(amount){
+
+  if(currentMode === "week"){
+
+    currentDate.setDate(
+      currentDate.getDate()
+      + (amount * 7)
+    );
+
+  }
+
+  else if(currentMode === "month"){
+
+    currentDate.setMonth(
+      currentDate.getMonth()
+      + amount
+    );
+
+  }
+
+  else {
+
+    currentDate.setFullYear(
+      currentDate.getFullYear()
+      + amount
+    );
+
+  }
+
+  renderStats();
+
+}
+
+// =========================================
+// CAMBIAR MODO
+// =========================================
+
+function setMode(mode){
+
+  currentMode = mode;
+
+  renderStats();
+
+}
+
+// =========================================
+// GRAFICO
+// =========================================
+
+let chart;
+
+// =========================================
+// RENDER
+// =========================================
+
+function renderStats(){
+
+  const filtered =
+  getFilteredRecords();
+
+  let income = 0;
+
+  let garments = 0;
+
+  let pending = 0;
+
+  const clients =
+  new Set();
+
+  const clientTotals = {};
+
+  const grouped = {};
+
+  filtered.forEach(record => {
+
+    income +=
+    Number(record.totalPrice);
+
+    garments +=
+    Number(record.garments);
+
+    pending +=
+    Number(record.pending);
+
+    clients.add(
+      record.clientName
+    );
+
+    // CLIENTES
+
+    if(!clientTotals[record.clientName]){
+
+      clientTotals[
+        record.clientName
+      ] = 0;
+
+    }
+
+    clientTotals[
+      record.clientName
+    ] += Number(record.totalPrice);
+
+    // GRAFICO
+
+    if(!grouped[record.date]){
+
+      grouped[record.date] = 0;
+
+    }
+
+    grouped[record.date] +=
+    Number(record.totalPrice);
+
+  });
+
+  // MEJOR CLIENTE
+
+  let bestClient = "-";
+
+  let bestValue = 0;
+
+  for(const client in clientTotals){
+
+    if(clientTotals[client] > bestValue){
+
+      bestValue =
+      clientTotals[client];
+
+      bestClient = client;
+
+    }
+
+  }
+
+  // PROMEDIO
+
+  const average =
+  filtered.length > 0
+
+  ?
+
+  income / filtered.length
+
+  :
+
+  0;
+
+  // HTML
+
+  document.getElementById(
+    "totalIncome"
+  ).textContent =
+  formatMoney(income);
+
+  document.getElementById(
+    "totalClients"
+  ).textContent =
+  clients.size;
+
+  document.getElementById(
+    "totalGarments"
+  ).textContent =
+  garments;
+
+  document.getElementById(
+    "totalPending"
+  ).textContent =
+  formatMoney(pending);
+
+  document.getElementById(
+    "bestClient"
+  ).textContent =
+  bestClient;
+
+  document.getElementById(
+    "averageOrder"
+  ).textContent =
+  formatMoney(average);
+
+  document.getElementById(
+    "totalOrders"
+  ).textContent =
+  filtered.length;
+
+  // TITULO RANGO
+
+  const range =
+  getCurrentRange();
+
+  document.getElementById(
+    "currentRange"
+  ).textContent =
+
+  `${range.start.toLocaleDateString()}
+   → 
+   ${range.end.toLocaleDateString()}`;
+
+  // GRAFICO
+
+  const ctx =
+  document.getElementById(
+    "incomeChart"
+  );
+
+  if(chart){
+
+    chart.destroy();
+
+  }
+
+  chart = new Chart(ctx, {
+
+    type: "line",
+
+    data: {
+
+      labels:
+      Object.keys(grouped),
+
+      datasets: [{
+
+        label: "Ingresos",
+
+        data:
+        Object.values(grouped),
+
+        tension: 0.3
+
+      }]
+
+    },
+
+    options: {
+
+      responsive: true,
+
+      plugins: {
+
+        legend: {
+
+          labels: {
+
+            color: "white"
+
+          }
+
+        }
+
+      },
+
+      scales: {
+
+        x: {
+
+          ticks: {
+
+            color: "white"
+
+          }
+
+        },
+
+        y: {
+
+          ticks: {
+
+            color: "white"
+
+          }
+
+        }
+
+      }
+
+    }
+
+  });
+
+}
+
+// =========================================
+// INICIAR
+// =========================================
+
+renderStats();
+
+</script>
+
+</body>
+</html>

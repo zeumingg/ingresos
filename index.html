@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Atelier Finance</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+
+    *{
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body{
+      background:
+      linear-gradient(
+        rgba(0,0,0,.88),
+        rgba(0,0,0,.92)
+      ),
+      url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=1600&auto=format&fit=crop');
+
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+
+      min-height: 100vh;
+
+      color: white;
+    }
+
+    .glass{
+      background: rgba(255,255,255,0.06);
+
+      backdrop-filter: blur(10px);
+
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .gold{
+      color: #d4af37;
+    }
+
+    .gold-bg{
+      background: #d4af37;
+    }
+
+    .input-dark{
+      background: rgba(255,255,255,0.07);
+
+      border: 1px solid rgba(255,255,255,0.1);
+
+      color: white;
+    }
+
+    .input-dark:focus{
+      outline: none;
+
+      border-color: #d4af37;
+
+      box-shadow:
+      0 0 0 2px rgba(212,175,55,.2);
+    }
+
+    .fade-up{
+      animation: fadeUp .4s ease;
+    }
+
+    @keyframes fadeUp{
+
+      from{
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to{
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+    }
+
+    ::placeholder{
+      color: rgba(255,255,255,.45);
+    }
+
+  </style>
+
+</head>
+
+<body class="p-4 md:p-8">
+
+  <div class="max-w-7xl mx-auto fade-up">
+
+    <!-- HEADER -->
+
+    <div class="glass rounded-3xl p-6 mb-6">
+
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+
+        <div>
+
+          <h1 class="text-3xl md:text-4xl font-bold gold">
+            Atelier Finance
+          </h1>
+
+          <p class="text-gray-300 mt-1">
+            Control de Finanzas para Costura y Sastrería
+          </p>
+
+        </div>
+
+        <div class="text-left md:text-right">
+
+          <p class="text-sm text-gray-400">
+            Fecha actual
+          </p>
+
+          <h2
+            id="currentDate"
+            class="text-xl font-semibold"
+          ></h2>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ESTADISTICAS -->
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+
+      <!-- INGRESOS -->
+
+      <div class="glass rounded-2xl p-5">
+
+        <p class="text-sm text-gray-400">
+          Ingresos Hoy
+        </p>
+
+        <h2
+          id="todayIncome"
+          class="text-2xl font-bold gold mt-2"
+        >
+          $0.00
+        </h2>
+
+      </div>
+
+      <!-- CLIENTES -->
+
+      <div class="glass rounded-2xl p-5">
+
+        <p class="text-sm text-gray-400">
+          Clientes
+        </p>
+
+        <h2
+          id="todayClients"
+          class="text-2xl font-bold gold mt-2"
+        >
+          0
+        </h2>
+
+      </div>
+
+      <!-- PRENDAS -->
+
+      <div class="glass rounded-2xl p-5">
+
+        <p class="text-sm text-gray-400">
+          Prendas
+        </p>
+
+        <h2
+          id="todayGarments"
+          class="text-2xl font-bold gold mt-2"
+        >
+          0
+        </h2>
+
+      </div>
+
+      <!-- PENDIENTES -->
+
+      <div class="glass rounded-2xl p-5">
+
+        <p class="text-sm text-gray-400">
+          Pendientes
+        </p>
+
+        <h2
+          id="todayPending"
+          class="text-2xl font-bold gold mt-2"
+        >
+          $0.00
+        </h2>
+
+      </div>
+
+    </div>
+
+    <!-- BOTONES -->
+
+    <div class="flex flex-wrap gap-4 mb-6">
+
+      <a
+        href="historial.html"
+        class="gold-bg text-black px-6 py-3 rounded-2xl font-semibold hover:scale-[1.02] transition-all"
+      >
+        Ver Historial
+      </a>
+
+<a
+  href="estadisticas.html"
+  class="glass px-6 py-3 rounded-2xl text-yellow-300 font-medium"
+>
+  Ver Estadísticas
+</a>
+
+    </div>
+
+    <!-- FORMULARIO -->
+
+    <div class="glass rounded-3xl p-6 mb-6">
+
+      <div class="flex items-center justify-between mb-6">
+
+        <h2 class="text-2xl font-semibold">
+          Nuevo Registro
+        </h2>
+
+        <span class="bg-yellow-500/20 text-yellow-300 px-4 py-2 rounded-full text-sm">
+          Registro Diario
+        </span>
+
+      </div>
+
+      <form
+        id="financeForm"
+        class="grid grid-cols-1 md:grid-cols-2 gap-5"
+      >
+
+        <!-- CLIENTE -->
+
+        <div>
+
+          <label class="block mb-2 text-sm text-gray-300">
+            Nombre del Cliente
+          </label>
+
+          <input
+            type="text"
+            id="clientName"
+            placeholder="Ej: Daniel Miranda"
+            class="w-full p-4 rounded-xl input-dark"
+          />
+
+        </div>
+
+        <!-- PRENDAS -->
+
+        <div>
+
+          <label class="block mb-2 text-sm text-gray-300">
+            Número de Prendas
+          </label>
+
+          <input
+            type="number"
+            id="garments"
+            min="1"
+            placeholder="Ej: 2"
+            class="w-full p-4 rounded-xl input-dark"
+          />
+
+        </div>
+
+        <!-- TIPO -->
+
+        <div>
+
+          <label class="block mb-2 text-sm text-gray-300">
+            Tipo de Prenda
+          </label>
+
+          <input
+            type="text"
+            id="garmentType"
+            placeholder="Ej: Pantalón, Vestido..."
+            class="w-full p-4 rounded-xl input-dark"
+          />
+
+        </div>
+
+        <!-- PRECIO -->
+
+        <div>
+
+          <label class="block mb-2 text-sm text-gray-300">
+            Precio Total ($)
+          </label>
+
+          <input
+            type="number"
+            id="totalPrice"
+            step="0.01"
+            min="0"
+            placeholder="Ej: 12.00"
+            class="w-full p-4 rounded-xl input-dark"
+          />
+
+        </div>
+
+        <!-- ANTICIPO -->
+
+        <div class="md:col-span-2">
+
+          <div class="flex items-center justify-between glass rounded-2xl p-4">
+
+            <div>
+
+              <h3 class="font-medium">
+                ¿Tiene anticipo?
+              </h3>
+
+              <p class="text-sm text-gray-400">
+                Activa esta opción si el cliente ya pagó una parte.
+              </p>
+
+            </div>
+
+            <label class="relative inline-flex items-center cursor-pointer">
+
+              <input
+                type="checkbox"
+                id="hasAdvance"
+                class="sr-only peer"
+              >
+
+              <div class="w-14 h-7 bg-gray-700 rounded-full peer peer-checked:bg-yellow-500 transition-all"></div>
+
+              <div class="absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition-all peer-checked:translate-x-7"></div>
+
+            </label>
+
+          </div>
+
+        </div>
+
+        <!-- ANTICIPO INPUT -->
+
+        <div>
+
+          <label class="block mb-2 text-sm text-gray-300">
+            Anticipo ($)
+          </label>
+
+          <input
+            type="number"
+            id="advance"
+            step="0.01"
+            min="0"
+            placeholder="Ej: 3.00"
+            disabled
+            class="w-full p-4 rounded-xl input-dark opacity-50"
+          />
+
+        </div>
+
+        <!-- PENDIENTE -->
+
+        <div>
+
+          <label class="block mb-2 text-sm text-gray-300">
+            Pendiente ($)
+          </label>
+
+          <input
+            type="number"
+            id="pending"
+            readonly
+            class="w-full p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/20 text-yellow-300"
+          />
+
+        </div>
+
+        <!-- FECHA -->
+
+        <div class="md:col-span-2">
+
+          <label class="block mb-2 text-sm text-gray-300">
+            Fecha
+          </label>
+
+          <input
+            type="date"
+            id="date"
+            class="w-full p-4 rounded-xl input-dark"
+          />
+
+        </div>
+
+        <!-- BOTON -->
+
+        <div class="md:col-span-2">
+
+          <button
+            type="submit"
+            class="w-full py-4 rounded-2xl gold-bg text-black font-semibold text-lg hover:scale-[1.01] transition-all"
+          >
+            Guardar Registro
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+    <!-- TABLA -->
+
+    <div class="glass rounded-3xl p-6">
+
+      <div class="flex items-center justify-between mb-6">
+
+        <h2 class="text-2xl font-semibold">
+          Últimos Registros
+        </h2>
+
+        <a
+          href="historial.html"
+          class="text-yellow-400 hover:text-yellow-300 transition font-medium"
+        >
+          Ver Historial
+        </a>
+
+      </div>
+
+      <div class="overflow-x-auto">
+
+        <table class="w-full">
+
+          <thead>
+
+            <tr class="border-b border-white/10 text-gray-400 text-sm">
+
+              <th class="text-left py-4">
+                Cliente
+              </th>
+
+              <th class="text-left py-4">
+                Prendas
+              </th>
+
+              <th class="text-left py-4">
+                Total
+              </th>
+
+              <th class="text-left py-4">
+                Estado
+              </th>
+
+              <th class="text-left py-4">
+                Fecha
+              </th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="tableBody">
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="js/app.js"></script>
+
+</body>
+</html>
