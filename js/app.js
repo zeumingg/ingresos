@@ -243,20 +243,42 @@ if(financeForm){
 
       // VALIDACION
 
-      if(
-        !clientName.value.trim() ||
-        !garments.value ||
-        !garmentType.value.trim() ||
-        !totalPrice.value
-      ){
+// =========================================
+// VALIDACION
+// =========================================
 
-        alert(
-          "Completa todos los campos."
-        );
+function validateForm() {
 
-        return;
+  // CLIENTE
 
-      }
+  if(!clientName.value.trim()){
+
+    alert(
+      "Ingresa el nombre del cliente."
+    );
+
+    return false;
+
+  }
+
+  // PRECIO
+
+  if(
+    !totalPrice.value ||
+    totalPrice.value <= 0
+  ){
+
+    alert(
+      "Ingresa un precio válido."
+    );
+
+    return false;
+
+  }
+
+  return true;
+
+}
 
       const records =
       getRecords();
