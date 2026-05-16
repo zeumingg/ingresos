@@ -282,10 +282,10 @@ if(financeForm){
         clientName.value.trim(),
 
         garments:
-        Number(garments.value),
+        Number(garments.value) || 0,
 
         garmentType:
-        garmentType.value.trim(),
+        garmentType.value || "-",
 
         totalPrice: total,
 
