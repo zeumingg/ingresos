@@ -1,0 +1,676 @@
+/* =========================================
+   ATELIER FINANCE - styles.css
+   SISTEMA DE SASTRERIA Y COSTURA
+========================================= */
+
+/* =========================
+   IMPORTACIONES
+========================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* =========================
+   VARIABLES
+========================= */
+
+:root{
+
+  --gold: #d4af37;
+  --gold-soft: #f0d77a;
+
+  --dark-1: #050505;
+  --dark-2: #101010;
+  --dark-3: #181818;
+  --dark-4: #222222;
+
+  --white: #ffffff;
+
+  --gray-1: #c7c7c7;
+  --gray-2: #9f9f9f;
+  --gray-3: #6f6f6f;
+
+  --green: #3ddc84;
+  --red: #ff5f5f;
+
+  --glass: rgba(255,255,255,0.06);
+  --glass-border: rgba(255,255,255,0.08);
+
+  --shadow-gold:
+  0 0 20px rgba(212,175,55,0.12);
+
+  --shadow-soft:
+  0 10px 30px rgba(0,0,0,.25);
+
+}
+
+/* =========================
+   RESET
+========================= */
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
+body{
+
+  font-family: 'Poppins', sans-serif;
+
+  min-height: 100vh;
+
+  color: var(--white);
+
+  background:
+  linear-gradient(
+    rgba(0,0,0,.90),
+    rgba(0,0,0,.92)
+  ),
+
+  url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=1600&auto=format&fit=crop');
+
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+
+  overflow-x: hidden;
+
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+::-webkit-scrollbar{
+  width: 8px;
+}
+
+::-webkit-scrollbar-track{
+  background: var(--dark-1);
+}
+
+::-webkit-scrollbar-thumb{
+  background: var(--gold);
+  border-radius: 50px;
+}
+
+/* =========================
+   SELECCION
+========================= */
+
+::selection{
+  background: var(--gold);
+  color: black;
+}
+
+/* =========================
+   CONTENEDOR PRINCIPAL
+========================= */
+
+.main-container{
+  width: 100%;
+  max-width: 1450px;
+  margin: auto;
+  padding: 25px;
+}
+
+/* =========================
+   GLASS EFFECT
+========================= */
+
+.glass{
+
+  background: var(--glass);
+
+  backdrop-filter: blur(10px);
+
+  border: 1px solid var(--glass-border);
+
+  box-shadow: var(--shadow-soft);
+
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+
+  border-radius: 30px;
+
+  padding: 30px;
+
+  margin-bottom: 25px;
+
+}
+
+.logo-title{
+
+  font-size: 3rem;
+
+  font-weight: 800;
+
+  color: var(--gold);
+
+  letter-spacing: 1px;
+
+}
+
+.logo-subtitle{
+
+  color: var(--gray-1);
+
+  margin-top: 5px;
+
+  font-size: .95rem;
+
+}
+
+.current-date{
+
+  color: var(--gold-soft);
+
+  font-size: 1.1rem;
+
+  font-weight: 600;
+
+}
+
+/* =========================
+   CARDS RESUMEN
+========================= */
+
+.stats-grid{
+
+  display: grid;
+
+  grid-template-columns: repeat(4,1fr);
+
+  gap: 18px;
+
+  margin-bottom: 25px;
+
+}
+
+.stat-card{
+
+  border-radius: 24px;
+
+  padding: 22px;
+
+  transition: .3s ease;
+
+  position: relative;
+
+  overflow: hidden;
+
+}
+
+.stat-card:hover{
+
+  transform: translateY(-5px);
+
+  box-shadow: var(--shadow-gold);
+
+}
+
+.stat-title{
+
+  color: var(--gray-2);
+
+  font-size: .95rem;
+
+}
+
+.stat-value{
+
+  margin-top: 10px;
+
+  font-size: 2rem;
+
+  font-weight: 700;
+
+  color: var(--gold);
+
+}
+
+/* =========================
+   FORMULARIO
+========================= */
+
+.form-section{
+
+  border-radius: 30px;
+
+  padding: 30px;
+
+  margin-bottom: 25px;
+
+}
+
+.section-title{
+
+  font-size: 2rem;
+
+  font-weight: 700;
+
+  margin-bottom: 25px;
+
+}
+
+.form-grid{
+
+  display: grid;
+
+  grid-template-columns: repeat(2,1fr);
+
+  gap: 20px;
+
+}
+
+.input-group{
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label{
+
+  margin-bottom: 10px;
+
+  color: var(--gray-1);
+
+  font-size: .95rem;
+
+}
+
+.input-dark{
+
+  width: 100%;
+
+  padding: 16px;
+
+  border-radius: 18px;
+
+  background: rgba(255,255,255,.06);
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  color: white;
+
+  transition: .25s ease;
+
+  font-size: 1rem;
+
+}
+
+.input-dark:focus{
+
+  outline: none;
+
+  border-color: var(--gold);
+
+  box-shadow:
+  0 0 0 4px rgba(212,175,55,.15);
+
+}
+
+.input-dark::placeholder{
+  color: rgba(255,255,255,.35);
+}
+
+/* =========================
+   SWITCH
+========================= */
+
+.switch-container{
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 20px;
+
+  border-radius: 22px;
+
+}
+
+.switch-info h3{
+
+  font-size: 1rem;
+
+  margin-bottom: 4px;
+
+}
+
+.switch-info p{
+
+  color: var(--gray-2);
+
+  font-size: .9rem;
+
+}
+
+.switch{
+
+  position: relative;
+
+  width: 65px;
+
+  height: 34px;
+
+}
+
+.switch input{
+  display: none;
+}
+
+.slider{
+
+  position: absolute;
+
+  inset: 0;
+
+  background: #444;
+
+  border-radius: 50px;
+
+  cursor: pointer;
+
+  transition: .3s;
+
+}
+
+.slider::before{
+
+  content: "";
+
+  position: absolute;
+
+  width: 26px;
+
+  height: 26px;
+
+  left: 4px;
+
+  top: 4px;
+
+  border-radius: 50%;
+
+  background: white;
+
+  transition: .3s;
+
+}
+
+.switch input:checked + .slider{
+
+  background: var(--gold);
+
+}
+
+.switch input:checked + .slider::before{
+
+  transform: translateX(31px);
+
+}
+
+/* =========================
+   SALDO PENDIENTE
+========================= */
+
+.pending-input{
+
+  background:
+  rgba(212,175,55,.08);
+
+  border:
+  1px solid rgba(212,175,55,.2);
+
+  color: var(--gold);
+
+  font-weight: 700;
+
+}
+
+/* =========================
+   BOTON PRINCIPAL
+========================= */
+
+.primary-button{
+
+  width: 100%;
+
+  border: none;
+
+  padding: 18px;
+
+  border-radius: 22px;
+
+  background: var(--gold);
+
+  color: black;
+
+  font-weight: 700;
+
+  font-size: 1rem;
+
+  cursor: pointer;
+
+  transition: .3s ease;
+
+}
+
+.primary-button:hover{
+
+  transform: translateY(-2px);
+
+  box-shadow:
+  0 10px 25px rgba(212,175,55,.25);
+
+}
+
+/* =========================
+   TABLA
+========================= */
+
+.table-section{
+
+  border-radius: 30px;
+
+  padding: 30px;
+
+}
+
+.table-wrapper{
+  overflow-x: auto;
+}
+
+table{
+
+  width: 100%;
+
+  border-collapse: collapse;
+
+}
+
+thead{
+
+  border-bottom:
+  1px solid rgba(255,255,255,.08);
+
+}
+
+th{
+
+  padding: 18px 10px;
+
+  text-align: left;
+
+  color: var(--gray-2);
+
+  font-size: .92rem;
+
+  font-weight: 500;
+
+}
+
+td{
+
+  padding: 18px 10px;
+
+  border-bottom:
+  1px solid rgba(255,255,255,.04);
+
+}
+
+tbody tr{
+
+  transition: .25s ease;
+
+}
+
+tbody tr:hover{
+
+  background:
+  rgba(255,255,255,.03);
+
+}
+
+.price-green{
+  color: var(--green);
+  font-weight: 600;
+}
+
+.price-red{
+  color: var(--red);
+  font-weight: 600;
+}
+
+/* =========================
+   BOTONES TABLA
+========================= */
+
+.action-btn{
+
+  border: none;
+
+  padding: 10px 14px;
+
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  transition: .25s ease;
+
+  font-weight: 600;
+
+}
+
+.edit-btn{
+
+  background:
+  rgba(212,175,55,.15);
+
+  color: var(--gold);
+
+}
+
+.delete-btn{
+
+  background:
+  rgba(255,95,95,.15);
+
+  color: var(--red);
+
+}
+
+.action-btn:hover{
+  transform: scale(1.05);
+}
+
+/* =========================
+   ANIMACIONES
+========================= */
+
+.fade-up{
+  animation: fadeUp .5s ease;
+}
+
+@keyframes fadeUp{
+
+  from{
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width: 1100px){
+
+  .stats-grid{
+    grid-template-columns: repeat(2,1fr);
+  }
+
+}
+
+@media(max-width: 850px){
+
+  .form-grid{
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media(max-width: 700px){
+
+  .logo-title{
+    font-size: 2.2rem;
+  }
+
+  .section-title{
+    font-size: 1.6rem;
+  }
+
+  .main-container{
+    padding: 14px;
+  }
+
+  .header,
+  .form-section,
+  .table-section{
+    padding: 22px;
+  }
+
+}
+
+@media(max-width: 550px){
+
+  .stats-grid{
+    grid-template-columns: 1fr;
+  }
+
+  .stat-value{
+    font-size: 1.7rem;
+  }
+
+  th,
+  td{
+    font-size: .9rem;
+  }
+
+}
