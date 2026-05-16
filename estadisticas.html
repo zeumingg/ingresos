@@ -59,237 +59,235 @@
       color: #d4af37;
     }
 
+    .gold-bg{
+      background: #d4af37;
+    }
+
   </style>
 
 </head>
 
 <body class="p-4 md:p-8">
 
-  <div class="max-w-7xl mx-auto">
+<div class="max-w-7xl mx-auto">
 
-    <!-- HEADER -->
+  <!-- CONTROLES -->
 
-    <div class="glass rounded-3xl p-5 mb-6">
+  <div class="glass rounded-3xl p-5 mb-6">
 
-  <div class="flex flex-wrap gap-3 items-center justify-between">
+    <div class="flex flex-wrap gap-3 items-center justify-between">
 
-    <div class="flex gap-3 flex-wrap">
+      <div class="flex gap-3 flex-wrap">
 
-      <button
-        onclick="setMode('week')"
-        class="bg-yellow-500 text-black px-5 py-2 rounded-xl font-semibold"
-      >
-        Semana
-      </button>
+        <button
+          onclick="setMode('week')"
+          class="gold-bg text-black px-5 py-2 rounded-xl font-semibold"
+        >
+          Semana
+        </button>
 
-      <button
-        onclick="setMode('month')"
-        class="glass px-5 py-2 rounded-xl"
-      >
-        Mes
-      </button>
+        <button
+          onclick="setMode('month')"
+          class="glass px-5 py-2 rounded-xl"
+        >
+          Mes
+        </button>
 
-      <button
-        onclick="setMode('year')"
-        class="glass px-5 py-2 rounded-xl"
-      >
-        Año
-      </button>
+        <button
+          onclick="setMode('year')"
+          class="glass px-5 py-2 rounded-xl"
+        >
+          Año
+        </button>
 
-    </div>
+      </div>
 
-    <div class="flex items-center gap-3">
+      <div class="flex items-center gap-3">
 
-      <button
-        onclick="changePeriod(-1)"
-        class="glass px-4 py-2 rounded-xl"
-      >
-        ←
-      </button>
+        <button
+          onclick="changePeriod(-1)"
+          class="glass px-4 py-2 rounded-xl"
+        >
+          ←
+        </button>
 
-      <span
-        id="currentRange"
-        class="text-yellow-300 font-medium"
-      >
-      </span>
+        <span
+          id="currentRange"
+          class="text-yellow-300 font-medium"
+        >
+        </span>
 
-      <button
-        onclick="changePeriod(1)"
-        class="glass px-4 py-2 rounded-xl"
-      >
-        →
-      </button>
+        <button
+          onclick="changePeriod(1)"
+          class="glass px-4 py-2 rounded-xl"
+        >
+          →
+        </button>
+
+      </div>
 
     </div>
 
   </div>
 
-</div>
+  <!-- HEADER -->
 
-    <div class="glass rounded-3xl p-6 mb-6">
+  <div class="glass rounded-3xl p-6 mb-6">
 
-      <div class="flex flex-wrap items-center justify-between gap-4">
+    <div class="flex flex-wrap items-center justify-between gap-4">
 
-        <div>
+      <div>
 
-          <h1 class="text-4xl font-bold gold">
-            Estadísticas
-          </h1>
+        <h1 class="text-4xl font-bold gold">
+          Estadísticas
+        </h1>
 
-          <p class="text-gray-300 mt-1">
-            Resumen general del negocio
-          </p>
+        <p class="text-gray-300 mt-1">
+          Resumen completo del negocio
+        </p>
+
+      </div>
+
+      <a
+        href="index.html"
+        class="gold-bg text-black px-6 py-3 rounded-2xl font-semibold"
+      >
+        Volver
+      </a>
+
+    </div>
+
+  </div>
+
+  <!-- CARDS -->
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+
+    <div class="glass rounded-2xl p-5">
+
+      <p class="text-gray-400 text-sm">
+        Ingresos Totales
+      </p>
+
+      <h2
+        id="totalIncome"
+        class="text-3xl font-bold gold mt-2"
+      >
+        $0
+      </h2>
+
+    </div>
+
+    <div class="glass rounded-2xl p-5">
+
+      <p class="text-gray-400 text-sm">
+        Clientes Únicos
+      </p>
+
+      <h2
+        id="totalClients"
+        class="text-3xl font-bold gold mt-2"
+      >
+        0
+      </h2>
+
+    </div>
+
+    <div class="glass rounded-2xl p-5">
+
+      <p class="text-gray-400 text-sm">
+        Prendas Totales
+      </p>
+
+      <h2
+        id="totalGarments"
+        class="text-3xl font-bold gold mt-2"
+      >
+        0
+      </h2>
+
+    </div>
+
+    <div class="glass rounded-2xl p-5">
+
+      <p class="text-gray-400 text-sm">
+        Pendientes
+      </p>
+
+      <h2
+        id="totalPending"
+        class="text-3xl font-bold gold mt-2"
+      >
+        $0
+      </h2>
+
+    </div>
+
+  </div>
+
+  <!-- INFO + GRAFICA -->
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+    <!-- INFO -->
+
+    <div class="glass rounded-3xl p-6">
+
+      <h2 class="text-2xl font-semibold mb-6">
+        Información General
+      </h2>
+
+      <div class="space-y-5 text-lg">
+
+        <div class="flex justify-between">
+
+          <span class="text-gray-400">
+            Mejor Cliente
+          </span>
+
+          <span id="bestClient">
+            -
+          </span>
 
         </div>
 
-        <a
-          href="index.html"
-          class="bg-yellow-500 text-black px-6 py-3 rounded-2xl font-semibold"
-        >
-          Volver
-        </a>
+        <div class="flex justify-between">
 
-      </div>
+          <span class="text-gray-400">
+            Promedio por Pedido
+          </span>
 
-    </div>
+          <span id="averageOrder">
+            $0
+          </span>
 
-    <!-- CARDS -->
+        </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="flex justify-between">
 
-      <div class="glass rounded-2xl p-5">
+          <span class="text-gray-400">
+            Total de Pedidos
+          </span>
 
-        <p class="text-gray-400 text-sm">
-          Ingresos Totales
-        </p>
-
-        <h2
-          id="totalIncome"
-          class="text-3xl font-bold gold mt-2"
-        >
-          $0
-        </h2>
-
-      </div>
-
-      <div class="glass rounded-2xl p-5">
-
-        <p class="text-gray-400 text-sm">
-          Clientes Únicos
-        </p>
-
-        <h2
-          id="totalClients"
-          class="text-3xl font-bold gold mt-2"
-        >
-          0
-        </h2>
-
-      </div>
-
-      <div class="glass rounded-2xl p-5">
-
-        <p class="text-gray-400 text-sm">
-          Prendas Totales
-        </p>
-
-        <h2
-          id="totalGarments"
-          class="text-3xl font-bold gold mt-2"
-        >
-          0
-        </h2>
-
-      </div>
-
-      <div class="glass rounded-2xl p-5">
-
-        <p class="text-gray-400 text-sm">
-          Pendientes
-        </p>
-
-        <h2
-          id="totalPending"
-          class="text-3xl font-bold gold mt-2"
-        >
-          $0
-        </h2>
-
-      </div>
-
-    </div>
-
-    <!-- EXTRA -->
-
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-
-      <div class="glass rounded-3xl p-6">
-
-        <h2 class="text-2xl font-semibold mb-4">
-          Información General
-        </h2>
-
-        <div class="space-y-4 text-lg">
-
-          <div class="flex justify-between">
-
-            <span class="text-gray-400">
-              Mejor Cliente
-            </span>
-
-            <span id="bestClient">
-              -
-            </span>
-
-          </div>
-
-          <div class="flex justify-between">
-
-            <span class="text-gray-400">
-              Día con más ingresos
-            </span>
-
-            <span id="bestDay">
-              -
-            </span>
-
-          </div>
-
-          <div class="flex justify-between">
-
-            <span class="text-gray-400">
-              Promedio por Pedido
-            </span>
-
-            <span id="averageOrder">
-              $0
-            </span>
-
-          </div>
-
-          <div class="flex justify-between">
-
-            <span class="text-gray-400">
-              Total de Pedidos
-            </span>
-
-            <span id="totalOrders">
-              0
-            </span>
-
-          </div>
+          <span id="totalOrders">
+            0
+          </span>
 
         </div>
 
       </div>
 
-      <!-- GRAFICO -->
+    </div>
 
-      <div class="glass rounded-3xl p-6">
+    <!-- GRAFICA -->
 
-        <h2 class="text-2xl font-semibold mb-6">
-          Ingresos por Día
-        </h2>
+    <div class="glass rounded-3xl p-6">
+
+      <h2 class="text-2xl font-semibold mb-6">
+        Ingresos
+      </h2>
+
+      <div class="h-[350px]">
 
         <canvas id="incomeChart"></canvas>
 
@@ -298,6 +296,8 @@
     </div>
 
   </div>
+
+</div>
 
 <script>
 
@@ -309,13 +309,11 @@ JSON.parse(
   localStorage.getItem(STORAGE_KEY)
 ) || [];
 
-// =========================================
-// ESTADO
-// =========================================
-
 let currentMode = "week";
 
 let currentDate = new Date();
+
+let chart;
 
 // =========================================
 // UTILIDADES
@@ -408,7 +406,7 @@ function getEndOfYear(date){
 }
 
 // =========================================
-// RANGO ACTUAL
+// RANGO
 // =========================================
 
 function getCurrentRange(){
@@ -450,29 +448,6 @@ function getCurrentRange(){
     getEndOfYear(currentDate)
 
   };
-
-}
-
-// =========================================
-// FILTRAR
-// =========================================
-
-function getFilteredRecords(){
-
-  const range =
-  getCurrentRange();
-
-  return records.filter(record => {
-
-    const date =
-    new Date(record.date);
-
-    return (
-      date >= range.start &&
-      date <= range.end
-    );
-
-  });
 
 }
 
@@ -526,19 +501,26 @@ function setMode(mode){
 }
 
 // =========================================
-// GRAFICO
-// =========================================
-
-let chart;
-
-// =========================================
 // RENDER
 // =========================================
 
 function renderStats(){
 
+  const range =
+  getCurrentRange();
+
   const filtered =
-  getFilteredRecords();
+  records.filter(record => {
+
+    const date =
+    new Date(record.date);
+
+    return (
+      date >= range.start &&
+      date <= range.end
+    );
+
+  });
 
   let income = 0;
 
@@ -568,8 +550,6 @@ function renderStats(){
       record.clientName
     );
 
-    // CLIENTES
-
     if(!clientTotals[record.clientName]){
 
       clientTotals[
@@ -582,8 +562,6 @@ function renderStats(){
       record.clientName
     ] += Number(record.totalPrice);
 
-    // GRAFICO
-
     if(!grouped[record.date]){
 
       grouped[record.date] = 0;
@@ -594,8 +572,6 @@ function renderStats(){
     Number(record.totalPrice);
 
   });
-
-  // MEJOR CLIENTE
 
   let bestClient = "-";
 
@@ -613,8 +589,6 @@ function renderStats(){
     }
 
   }
-
-  // PROMEDIO
 
   const average =
   filtered.length > 0
@@ -664,25 +638,59 @@ function renderStats(){
   ).textContent =
   filtered.length;
 
-  // TITULO RANGO
-
-  const range =
-  getCurrentRange();
-
   document.getElementById(
     "currentRange"
   ).textContent =
 
   `${range.start.toLocaleDateString()}
-   → 
+   →
    ${range.end.toLocaleDateString()}`;
 
-  // GRAFICO
+  // =========================================
+  // GENERAR TODOS LOS DIAS
+  // =========================================
+
+  const labels = [];
+
+  const values = [];
+
+  const tempDate =
+  new Date(range.start);
+
+  while(tempDate <= range.end){
+
+    const formatted =
+    tempDate.toISOString()
+    .split("T")[0];
+
+    labels.push(
+      tempDate.toLocaleDateString(
+        "es-SV",
+        {
+          day: "2-digit",
+          month: "2-digit"
+        }
+      )
+    );
+
+    values.push(
+      grouped[formatted] || 0
+    );
+
+    tempDate.setDate(
+      tempDate.getDate() + 1
+    );
+
+  }
+
+  // =========================================
+  // CHART
+  // =========================================
 
   const ctx =
-  document.getElementById(
-    "incomeChart"
-  );
+  document
+  .getElementById("incomeChart")
+  .getContext("2d");
 
   if(chart){
 
@@ -690,23 +698,57 @@ function renderStats(){
 
   }
 
+  const gradient =
+  ctx.createLinearGradient(
+    0,
+    0,
+    0,
+    300
+  );
+
+  gradient.addColorStop(
+    0,
+    "rgba(212,175,55,0.45)"
+  );
+
+  gradient.addColorStop(
+    1,
+    "rgba(212,175,55,0)"
+  );
+
   chart = new Chart(ctx, {
 
     type: "line",
 
     data: {
 
-      labels:
-      Object.keys(grouped),
+      labels: labels,
 
       datasets: [{
 
         label: "Ingresos",
 
-        data:
-        Object.values(grouped),
+        data: values,
 
-        tension: 0.3
+        borderColor: "#d4af37",
+
+        backgroundColor: gradient,
+
+        fill: true,
+
+        tension: 0.4,
+
+        borderWidth: 3,
+
+        pointRadius: 5,
+
+        pointHoverRadius: 8,
+
+        pointBackgroundColor: "#d4af37",
+
+        pointBorderColor: "#fff",
+
+        pointBorderWidth: 2
 
       }]
 
@@ -716,13 +758,47 @@ function renderStats(){
 
       responsive: true,
 
+      maintainAspectRatio: false,
+
+      interaction: {
+
+        intersect: false,
+
+        mode: "index"
+
+      },
+
       plugins: {
 
         legend: {
 
-          labels: {
+          display: false
 
-            color: "white"
+        },
+
+        tooltip: {
+
+          backgroundColor:
+          "#111",
+
+          borderColor:
+          "#d4af37",
+
+          borderWidth: 1,
+
+          titleColor: "#fff",
+
+          bodyColor: "#fff",
+
+          padding: 12,
+
+          callbacks: {
+
+            label: function(context){
+
+              return `Ingresos: $${context.raw.toFixed(2)}`;
+
+            }
 
           }
 
@@ -734,9 +810,19 @@ function renderStats(){
 
         x: {
 
+          grid: {
+
+            color:
+            "rgba(255,255,255,0.05)"
+
+          },
+
           ticks: {
 
-            color: "white"
+            color:
+            "rgba(255,255,255,0.7)",
+
+            maxRotation: 0
 
           }
 
@@ -744,9 +830,22 @@ function renderStats(){
 
         y: {
 
+          beginAtZero: true,
+
+          grid: {
+
+            color:
+            "rgba(255,255,255,0.05)"
+
+          },
+
           ticks: {
 
-            color: "white"
+            color:
+            "rgba(255,255,255,0.7)",
+
+            callback: value =>
+            "$" + value
 
           }
 
@@ -759,10 +858,6 @@ function renderStats(){
   });
 
 }
-
-// =========================================
-// INICIAR
-// =========================================
 
 renderStats();
 
